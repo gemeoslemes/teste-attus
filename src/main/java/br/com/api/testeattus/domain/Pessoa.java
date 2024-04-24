@@ -1,5 +1,6 @@
 package br.com.api.testeattus.domain;
 
+import br.com.api.testeattus.records.PessoaDto;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,4 +26,10 @@ public class Pessoa {
     @Column(name = "enderecos_id")
     @OneToMany(mappedBy = "pessoas", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Enderecos> enderecos;
+
+
+    public Pessoa(PessoaDto dto) {
+        this.nomeCompleto = dto.nome();
+        this.dataNascimento = dto.dataNascimento();
+    }
 }
