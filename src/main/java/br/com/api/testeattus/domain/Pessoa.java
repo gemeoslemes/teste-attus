@@ -1,5 +1,6 @@
 package br.com.api.testeattus.domain;
 
+import br.com.api.testeattus.records.PessoaAtualizaDto;
 import br.com.api.testeattus.records.PessoaDto;
 import jakarta.persistence.*;
 import lombok.*;
@@ -31,5 +32,14 @@ public class Pessoa {
     public Pessoa(PessoaDto dto) {
         this.nomeCompleto = dto.nome();
         this.dataNascimento = dto.dataNascimento();
+    }
+
+    public void updateData(PessoaAtualizaDto pessoaDto) {
+        if(pessoaDto.nome() != null && !pessoaDto.nome().isEmpty()) {
+            this.nomeCompleto = pessoaDto.nome();
+        }
+        if(pessoaDto.dataNascimento() != null) {
+            this.dataNascimento = pessoaDto.dataNascimento();
+        }
     }
 }
