@@ -24,6 +24,8 @@ public class Enderecos {
 
     private String cidade;
 
+    @Column(name = "estado")
+    @Enumerated(EnumType.STRING)
     private Estado estado;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pessoa_id")
