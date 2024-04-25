@@ -41,11 +41,13 @@ public class EnderecosService {
     }
 
     public Enderecos findAddressesByPersonId(Long idPessoa, Long id) {
-        if(repository.findAddressesByPersonId(idPessoa, id) == null) {
+        Enderecos endereco = repository.findAddressesByPersonId(idPessoa, id);
+
+        if(endereco == null) {
             throw new AddressNotFoundException("Endereço não encontrado!");
-        } else {
-            return repository.findAddressesByPersonId(idPessoa, id);
         }
+
+        return endereco;
     }
 
     public Optional<Enderecos> findById(Long id) {

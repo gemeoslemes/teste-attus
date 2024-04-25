@@ -45,7 +45,6 @@ class PessoaServiceTest {
         when(repository.save(pessoa)).thenReturn(pessoa);
         Pessoa savedPessoa = pessoaService.save(pessoa);
 
-
         assertNotNull(savedPessoa);
         assertEquals(pessoa.getId(), savedPessoa.getId());
         assertEquals(pessoa.getNomeCompleto(), savedPessoa.getNomeCompleto());
@@ -59,7 +58,6 @@ class PessoaServiceTest {
     void saveCase2() {
         Pessoa pessoa = new Pessoa();
         pessoa.setId(1L);
-
 
         assertThrows(ViolationOfArgumentsException.class, () -> {
             pessoaService.save(pessoa);
