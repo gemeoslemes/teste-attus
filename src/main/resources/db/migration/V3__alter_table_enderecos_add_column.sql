@@ -1,0 +1,1 @@
+ALTER TABLE enderecos ADD favorito BOOLEAN DEFAULT false;
