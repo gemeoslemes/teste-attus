@@ -28,7 +28,6 @@ public class Pessoa {
     @OneToMany(mappedBy = "pessoas", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Enderecos> enderecos;
 
-
     public Pessoa(PessoaDto dto) {
         this.nomeCompleto = dto.nome();
         this.dataNascimento = dto.dataNascimento();

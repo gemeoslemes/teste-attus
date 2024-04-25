@@ -2,6 +2,7 @@ package br.com.api.testeattus.infra.exceptions;
 
 import br.com.api.testeattus.exceptions.AddressNotFoundException;
 import br.com.api.testeattus.exceptions.EnderecoDuplicadoException;
+import br.com.api.testeattus.exceptions.ViolationOfArgumentsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -20,4 +21,11 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         RestErrorMessage restErrorMessage = new RestErrorMessage(HttpStatus.BAD_REQUEST, exception.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(restErrorMessage);
     }
+
+    @ExceptionHandler(ViolationOfArgumentsException.class)
+    public ResponseEntity<RestErrorMessage> violationArgument(ViolationOfArgumentsException exception) {
+        RestErrorMessage restErrorMessage = new RestErrorMessage(HttpStatus.BAD_REQUEST, exception.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(restErrorMessage);
+    }
+
 }
