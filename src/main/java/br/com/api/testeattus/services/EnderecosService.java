@@ -1,6 +1,8 @@
 package br.com.api.testeattus.services;
 
 import br.com.api.testeattus.domain.Enderecos;
+import br.com.api.testeattus.exceptions.AddressNotFoundException;
+import br.com.api.testeattus.exceptions.EnderecoDuplicadoException;
 import br.com.api.testeattus.repository.EnderecoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,18 +28,24 @@ public class EnderecosService {
 
             return repository.save(endereco);
         } else {
-            throw new RuntimeException("Endereço já existe");
+            throw new EnderecoDuplicadoException("Endereço já existe");
         }
-
     }
 
-
     public List<Enderecos> searchAllAddressesById(Long idPessoa) {
-        return repository.findAllByIdPerson(idPessoa);
+        List<Enderecos> allByIdAddresses = repository.findAllByIdPerson(idPessoa);
+        if(!allByIdAddresses.isEmpty()){
+            return allByIdAddresses;
+        }
+        throw new AddressNotFoundException("Endereço não encontrado!");
     }
 
     public Enderecos findAddressesByPersonId(Long idPessoa, Long id) {
-        return repository.findAddressesByPersonId(idPessoa, id);
+        if(repository.findAddressesByPersonId(idPessoa, id) == null) {
+            throw new AddressNotFoundException("Endereço não encontrado!");
+        } else {
+            return repository.findAddressesByPersonId(idPessoa, id);
+        }
     }
 
     public Optional<Enderecos> findById(Long id) {
