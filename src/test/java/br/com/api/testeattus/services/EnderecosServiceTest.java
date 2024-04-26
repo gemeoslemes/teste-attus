@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ActiveProfiles;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
@@ -178,7 +177,7 @@ class EnderecosServiceTest {
     }
 
     @Test
-    @DisplayName("Verifica se o novo endereço é definido como favorito quando não existem endereços favoritos")
+    @DisplayName("Verifica se o novo endereço é definido como principal quando não existem endereços favoritos")
     void checkAndSetNewAddressAsNotFavoriteCase1() {
         Pessoa pessoa = new Pessoa();
         pessoa.setId(1L);
@@ -186,19 +185,19 @@ class EnderecosServiceTest {
         Enderecos endereco = new Enderecos();
         endereco.setId(1L);
         endereco.setPessoas(pessoa);
-        endereco.setFavorito(true);
+        endereco.setPrincipal(true);
 
         when(repository.searchFavoriteAddress(pessoa.getId())).thenReturn(Collections.emptyList());
 
         Enderecos result = enderecosService.checkAndSetNewAddressAsNotFavorite(endereco);
 
-        assertTrue(result.isFavorito());
+        assertTrue(result.isPrincipal());
 
         verify(repository, times(1)).searchFavoriteAddress(pessoa.getId());
     }
 
     @Test
-    @DisplayName("Verifica se o novo endereço é definido como favorito quando existem endereços favoritos")
+    @DisplayName("Verifica se o novo endereço é definido como principal quando existem endereços favoritos")
     void checkAndSetNewAddressAsNotFavoriteCase2() {
         Pessoa pessoa = new Pessoa();
         pessoa.setId(1L);
@@ -206,18 +205,18 @@ class EnderecosServiceTest {
         Enderecos endereco = new Enderecos();
         endereco.setId(1L);
         endereco.setPessoas(pessoa);
-        endereco.setFavorito(true);
+        endereco.setPrincipal(true);
 
         Enderecos endereco2 = new Enderecos();
         endereco2.setId(1L);
         endereco2.setPessoas(pessoa);
-        endereco2.setFavorito(true);
+        endereco2.setPrincipal(true);
 
         when(repository.searchFavoriteAddress(pessoa.getId())).thenReturn(Collections.singletonList(endereco));
 
         Enderecos result = enderecosService.checkAndSetNewAddressAsNotFavorite(endereco2);
 
-        assertFalse(result.isFavorito());
+        assertFalse(result.isPrincipal());
 
         verify(repository, times(1)).searchFavoriteAddress(pessoa.getId());
     }

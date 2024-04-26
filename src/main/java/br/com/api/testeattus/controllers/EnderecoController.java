@@ -37,13 +37,19 @@ public class EnderecoController {
         List<EnderecoDetalhamentoDto> enderecoDetalhamentoDto = enderecos.stream()
                                                             .map(EnderecoDetalhamentoDto::new)
                                                             .collect(Collectors.toList());
+        if (enderecoDetalhamentoDto.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(enderecoDetalhamentoDto);
     }
 
     @GetMapping("/{idPessoa}/{id}")
     public ResponseEntity<EnderecoDetalhamentoDto> listingAddressByPerson(@PathVariable Long idPessoa, @PathVariable Long id) {
         Enderecos enderecos = service.findAddressesByPersonId(idPessoa, id);
-        return ResponseEntity.ok(new EnderecoDetalhamentoDto(enderecos));
+        if(enderecos.getId() != null || enderecos.getPessoas().getId() != null) {
+            return ResponseEntity.ok(new EnderecoDetalhamentoDto(enderecos));
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @PutMapping("/{id}")

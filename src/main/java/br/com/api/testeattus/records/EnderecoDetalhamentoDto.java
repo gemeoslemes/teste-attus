@@ -12,10 +12,23 @@ public record EnderecoDetalhamentoDto(
         String cidade,
         Estado estado,
         Long pessoa,
-        boolean favorito
+        boolean principal
 ) {
     public EnderecoDetalhamentoDto(Enderecos endereco) {
         this(endereco.getId(), endereco.getLogradouro(), endereco.getCep(), endereco.getNumero(), endereco.getCidade(),
-            endereco.getEstado(), endereco.getPessoas().getId(), endereco.isFavorito());
+            endereco.getEstado(), endereco.getPessoas().getId(), endereco.isPrincipal());
+    }
+
+    public Enderecos toEndereco() {
+        Enderecos endereco = new Enderecos();
+        endereco.setLogradouro(this.logradouro);
+        endereco.setCep(this.cep);
+        endereco.setNumero(this.numero);
+        endereco.setCidade(this.cidade);
+        endereco.setEstado(this.estado);
+        Pessoa pessoa1 = new Pessoa();
+        endereco.setPessoas(pessoa1);
+        endereco.setPrincipal(this.principal);
+        return endereco;
     }
 }

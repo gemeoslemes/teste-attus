@@ -35,8 +35,8 @@ public class Enderecos {
     @JoinColumn(name = "pessoa_id")
     private Pessoa pessoas;
 
-    @Column(name = "favorito")
-    private boolean favorito;
+    @Column(name = "principal")
+    private boolean principal;
 
     public Enderecos(EnderecoDto dto) {
         this.logradouro = dto.logradouro();
@@ -47,9 +47,9 @@ public class Enderecos {
         this.pessoas = new Pessoa();
         this.pessoas.setId(dto.pessoa());
         if(dto.favorito() == true) {
-            this.favorito = dto.favorito();
+            this.principal = dto.favorito();
         } else {
-            this.favorito = false;
+            this.principal = false;
         }
     }
 
@@ -69,8 +69,8 @@ public class Enderecos {
         if(enderecos.estado() != null) {
             this.estado = enderecos.estado();
         }
-        if(enderecos.favorito()) {
-            this.favorito = enderecos.favorito();
+        if(enderecos.principal()) {
+            this.principal = enderecos.principal();
         }
     }
 }

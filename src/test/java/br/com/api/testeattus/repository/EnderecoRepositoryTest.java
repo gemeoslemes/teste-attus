@@ -64,7 +64,7 @@ class EnderecoRepositoryTest {
     }
 
     @Test
-    @DisplayName("Encontrando endereço favorito de uma pessoa com sucesso")
+    @DisplayName("Encontrando endereço principal de uma pessoa com sucesso")
     void searchFavoriteAddressCase1() {
         Pessoa pessoa = new Pessoa();
         pessoa.setId(1L);
@@ -74,7 +74,7 @@ class EnderecoRepositoryTest {
         Pessoa pessoaGerenciada = entityManager.merge(pessoa);
 
         Enderecos endereco = createEndereco(1L, "Rua Teste", 12345678, 123, "Cidade Teste", Estado.MG, pessoaGerenciada.getId());
-        endereco.setFavorito(true);
+        endereco.setPrincipal(true);
 
         entityManager.merge(endereco);
 
@@ -84,7 +84,7 @@ class EnderecoRepositoryTest {
     }
 
     @Test
-    @DisplayName("Não encontrando endereço favorito de uma pessoa")
+    @DisplayName("Não encontrando endereço principal de uma pessoa")
     void searchFavoriteAddressCase2() {
         Pessoa pessoa = new Pessoa();
         pessoa.setId(999L);
@@ -94,7 +94,7 @@ class EnderecoRepositoryTest {
         Pessoa pessoaGerenciada = entityManager.merge(pessoa);
 
         Enderecos endereco = createEndereco(1L, "Rua Teste", 12345678, 123, "Cidade Teste", Estado.MG, 1L);
-        endereco.setFavorito(false);
+        endereco.setPrincipal(false);
 
         List<Enderecos> enderecoFavorito = enderecoRepository.searchFavoriteAddress(pessoaGerenciada.getId());
 
@@ -112,7 +112,7 @@ class EnderecoRepositoryTest {
         Pessoa pessoaGerenciada = entityManager.merge(pessoa);
 
         Enderecos endereco = createEndereco(1L, "Rua Teste", 12345678, 123, "Cidade Teste", Estado.MG, pessoaGerenciada.getId());
-        endereco.setFavorito(true);
+        endereco.setPrincipal(true);
 
         entityManager.merge(endereco);
 

@@ -8,6 +8,6 @@ public record EnderecoAtualizaDto(
         Integer numero,
         String cidade,
         Estado estado,
-        boolean favorito
+        boolean principal
 ) {
 }

@@ -10,10 +10,10 @@ import java.util.List;
 
 @Repository
 public interface EnderecoRepository extends JpaRepository<Enderecos, Long> {
-    @Query("SELECT e FROM enderecos e WHERE e.pessoas.id = :idPessoa ORDER BY e.favorito DESC")
+    @Query("SELECT e FROM enderecos e WHERE e.pessoas.id = :idPessoa ORDER BY e.principal DESC")
     List<Enderecos> findAllByIdPerson(Long idPessoa);
 
-    @Query("SELECT e FROM enderecos e WHERE e.favorito = true AND e.pessoas.id = :idPessoa")
+    @Query("SELECT e FROM enderecos e WHERE e.principal = true AND e.pessoas.id = :idPessoa")
     List<Enderecos> searchFavoriteAddress(Long idPessoa);
 
     @Query("SELECT CASE WHEN COUNT(e) > 0 THEN true ELSE false END FROM enderecos e WHERE "

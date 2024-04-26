@@ -62,7 +62,7 @@ public class EnderecosService {
     protected Enderecos checkAndSetNewAddressAsNotFavorite(Enderecos enderecos) {
         List<Enderecos> listEnderecos = repository.searchFavoriteAddress(enderecos.getPessoas().getId());
         if (!listEnderecos.isEmpty()) {
-            enderecos.setFavorito(false);
+            enderecos.setPrincipal(false);
         }
         return enderecos;
     }
